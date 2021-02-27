@@ -7,7 +7,7 @@ part of 'login_controller.dart';
 // **************************************************************************
 
 final $LoginController = BindInject(
-  (i) => LoginController(),
+  (i) => LoginController(i<AuthService>()),
   singleton: true,
   lazy: true,
 );
@@ -19,18 +19,26 @@ final $LoginController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$LoginController on _LoginControllerBase, Store {
-  final _$valueAtom = Atom(name: '_LoginControllerBase.value');
+  Computed<bool> _$validatorNameComputed;
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  bool get validatorName =>
+      (_$validatorNameComputed ??= Computed<bool>(() => super.validatorName,
+              name: '_LoginControllerBase.validatorName'))
+          .value;
+
+  final _$nameAtom = Atom(name: '_LoginControllerBase.name');
+
+  @override
+  String get name {
+    _$nameAtom.reportRead();
+    return super.name;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set name(String value) {
+    _$nameAtom.reportWrite(value, super.name, () {
+      super.name = value;
     });
   }
 
@@ -38,11 +46,11 @@ mixin _$LoginController on _LoginControllerBase, Store {
       ActionController(name: '_LoginControllerBase');
 
   @override
-  void increment() {
+  void setName(String value) {
     final _$actionInfo = _$_LoginControllerBaseActionController.startAction(
-        name: '_LoginControllerBase.increment');
+        name: '_LoginControllerBase.setName');
     try {
-      return super.increment();
+      return super.setName(value);
     } finally {
       _$_LoginControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -51,7 +59,8 @@ mixin _$LoginController on _LoginControllerBase, Store {
   @override
   String toString() {
     return '''
-value: ${value}
+name: ${name},
+validatorName: ${validatorName}
     ''';
   }
 }

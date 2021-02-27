@@ -15,13 +15,34 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: <Widget>[],
-      ),
-    );
+    final _size = MediaQuery.of(context).size;
+    return FutureBuilder<bool>(
+        future: controller.init(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data)
+            Future.delayed(Duration(seconds: 2),
+                () => Navigator.of(context).pushReplacementNamed('/home'));
+          else if (snapshot.hasData && !snapshot.data)
+            Future.delayed(Duration(seconds: 2),
+                () => Navigator.of(context).pushReplacementNamed('/login'));
+          return Scaffold(
+            body: Container(
+              height: _size.height,
+              width: _size.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    child: Icon(
+                      Icons.chat_outlined,
+                      size: _size.width / 3.5,
+                    ),
+                  ),
+                  CircularProgressIndicator(),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }
