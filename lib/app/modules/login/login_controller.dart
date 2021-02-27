@@ -29,9 +29,10 @@ abstract class _LoginControllerBase with Store {
       final result = await _authService.login(
         name: name,
       );
-      if (result)
+      if (result) {
+        await _authService.getData();
         Modular.to.pushReplacementNamed('/home');
-      else
+      } else
         scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text(

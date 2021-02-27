@@ -33,6 +33,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  intl: 
+  uuid: 
   socket_io_client: ^0.9.12
   shared_preferences: 
   dio: ^3.0.10

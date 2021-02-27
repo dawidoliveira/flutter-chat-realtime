@@ -22,6 +22,9 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
           if (snapshot.hasData && snapshot.data)
             Future.delayed(Duration(seconds: 2),
                 () => Navigator.of(context).pushReplacementNamed('/home'));
+          else if (snapshot.hasData && !snapshot.data)
+            Future.delayed(Duration(seconds: 2),
+                () => Navigator.of(context).pushReplacementNamed('/login'));
           return Scaffold(
             body: Container(
               height: _size.height,

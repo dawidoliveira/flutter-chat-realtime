@@ -1,4 +1,5 @@
 import 'package:chat/app/modules/home/home_controller.dart';
+import 'package:chat/app/modules/login/login_controller.dart';
 import 'package:chat/app/modules/splash/splash_module.dart';
 
 import 'services/auth/auth_service.dart';
@@ -15,7 +16,8 @@ class AppModule extends MainModule {
         $AuthService,
         $AuthRepository,
         $AppController,
-        $HomeController,
+        Bind((i) => HomeController(i.get<AuthService>())),
+        Bind((i) => LoginController(i.get<AuthService>())),
       ];
 
   @override

@@ -14,6 +14,8 @@ abstract class _SplashControllerBase with Store {
   Future<bool> init() async {
     try {
       await _authService.getData();
+      _authService.initConnection();
+      if (_authService.userData == null) return false;
       return true;
     } catch (e) {
       return false;
